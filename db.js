@@ -1,43 +1,44 @@
 const Sequelize = require('sequelize');
 const { STRING } = Sequelize;
-const faker = require('faker')
+const faker = require('faker');
 
 const db = new Sequelize(
-    process.env.DATABASE_URL || 'redux_hw_crazy_products',
-     'postgres',
-     'Ny1knicks23',{
+  process.env.DATABASE_URL || 'redux_hw_crazy_products',
+  'postgres',
+  'ask for permissions',
+  {
     host: 'localhost',
-    dialect: 'postgres'
-  });
+    dialect: 'postgres',
+  }
+);
 
 const Product = db.define('product', {
-    name: {
-        type: STRING
-    }
-})
+  name: {
+    type: STRING,
+  },
+});
 
 const Manufacturer = db.define('manufacturer', {
-    name: {
-        type: STRING
-    }
-})
+  name: {
+    type: STRING,
+  },
+});
 
-
-const syncAndSeed = async() => {
-    await db.sync({force: true});
-    const [hat, pant, stapler, google, facebook, amazon] = await Promise.all([
-        Product.create({name: 'spaghetti hat'}),
-        Product.create({name: 'cat pants'}),
-        Product.create({name: 'jello stapler'}),
-        Manufacturer.create({name: 'Google'}),
-        Manufacturer.create({name: 'Facebook'}),
-        Manufacturer.create({name: 'Amazon'}),
-    ])
-}
+const syncAndSeed = async () => {
+  await db.sync({ force: true });
+  const [hat, pant, stapler, google, facebook, amazon] = await Promise.all([
+    Product.create({ name: 'spaghetti hat' }),
+    Product.create({ name: 'cat pants' }),
+    Product.create({ name: 'jello stapler' }),
+    Manufacturer.create({ name: 'Google' }),
+    Manufacturer.create({ name: 'Facebook' }),
+    Manufacturer.create({ name: 'Amazon' }),
+  ]);
+};
 
 module.exports = {
-    syncAndSeed,
-    db,
-    Product,
-    Manufacturer
-}
+  syncAndSeed,
+  db,
+  Product,
+  Manufacturer,
+};
